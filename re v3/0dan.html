@@ -78,7 +78,7 @@
     <div id="calculator">
         <h3 id="calcTitle">计算器</h3>
         <p id="calcInfo"></p>
-        <input type="number" id="calcInput" placeholder="输入除数，如: 2 或 0.5" step="0.01">
+        <input type="number" id="calcInput" placeholder="输入数字" step="0.01">
         <div>
             <button onclick="calculate()">计算</button>
             <button onclick="closeCalculator()">关闭</button>
@@ -104,12 +104,14 @@
                     
                     document.getElementById('calcTitle').textContent = '时长计算器(除法)';
                     document.getElementById('calcInfo').textContent = `当前时长: ${value} (${currentValue}秒)`;
+                    document.getElementById('calcInput').placeholder = "输入除数，如: 2 或 0.5";
                 }
             } else {
                 // BPM
                 currentValue = parseFloat(value);
                 document.getElementById('calcTitle').textContent = 'BPM计算器(乘法)';
                 document.getElementById('calcInfo').textContent = `当前BPM: ${currentValue}`;
+                document.getElementById('calcInput').placeholder = "输入乘数，如: 2 或 0.5";
             }
             
             // 设置初始值为1
@@ -131,20 +133,26 @@
             
             if (input) {
                 try {
-                    // 将输入转换为数字并进行除法运算
-                    const divisor = parseFloat(input);
+                    // 将输入转换为数字
+                    const num = parseFloat(input);
+                    let result;
                     
-                    // 检查除数是否为0
-                    if (divisor === 0) {
-                        document.getElementById('calcResult').textContent = '错误：除数不能为零';
-                        return;
+                    // 根据类型选择运算方式
+                    if (currentType === 'time') {
+                        // 时长使用除法
+                        if (num === 0) {
+                            document.getElementById('calcResult').textContent = '错误：除数不能为零';
+                            return;
+                        }
+                        result = currentValue / num;
+                    } else {
+                        // BPM使用乘法
+                        result = currentValue * num;
                     }
-                    
-                    const result = currentValue / divisor;
                     
                     // 显示结果
                     const unit = currentType === 'time' ? '秒' : 'BPM';
-                    document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(2)}${unit}`;
+                    document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(4)}${unit}`;
                 } catch (e) {
                     document.getElementById('calcResult').textContent = '计算错误，请输入有效的数字';
                 }
