@@ -12,7 +12,7 @@
             color: blue;
         }
         
-        
+        /* 简单居中计算器样式 */
         #calculator {
             display: none;
             position: fixed;
@@ -74,7 +74,7 @@
     <h2><a href="../index.html">返回主页</a></h2>
     <h4>网站制作者:团长的二营长 </h4>
 
-   
+    <!-- 居中计算器 -->
     <div id="calculator">
         <h3 id="calcTitle">计算器</h3>
         <p id="calcInfo"></p>
@@ -90,12 +90,12 @@
         let currentValue = 0;
         let currentType = '';
         
-      
+        // 显示计算器
         function showCalculator(value, type) {
             currentType = type;
             
             if (type === 'time') {
-              
+                // 解析时长
                 const match = value.match(/(\d+)分(\d+)秒/);
                 if (match) {
                     const minutes = parseInt(match[1]);
@@ -112,29 +112,29 @@
                 document.getElementById('calcInfo').textContent = `当前BPM: ${currentValue}`;
             }
             
-      
+            // 设置初始值为1
             document.getElementById('calcInput').value = '1';
             document.getElementById('calcResult').textContent = '';
             
-  
+            // 显示计算器
             document.getElementById('calculator').style.display = 'block';
             
- 
+            // 聚焦输入框并选中所有文本
             const input = document.getElementById('calcInput');
             input.focus();
             input.select();
         }
         
-     
+        // 计算函数
         function calculate() {
             const input = document.getElementById('calcInput').value;
             
             if (input) {
                 try {
-                 
+                    // 将输入转换为数字并进行除法运算
                     const divisor = parseFloat(input);
                     
-                
+                    // 检查除数是否为0
                     if (divisor === 0) {
                         document.getElementById('calcResult').textContent = '错误：除数不能为零';
                         return;
@@ -142,7 +142,7 @@
                     
                     const result = currentValue / divisor;
                     
-                   
+                    // 显示结果
                     const unit = currentType === 'time' ? '秒' : 'BPM';
                     document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(2)}${unit}`;
                 } catch (e) {
@@ -153,12 +153,12 @@
             }
         }
         
-
+        // 关闭计算器
         function closeCalculator() {
             document.getElementById('calculator').style.display = 'none';
         }
         
-     
+        // 支持按Enter键计算
         document.getElementById('calcInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 calculate();
@@ -167,4 +167,3 @@
     </script>
 </body>
 </html>
-
