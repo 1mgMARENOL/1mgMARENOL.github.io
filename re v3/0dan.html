@@ -1,33 +1,169 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head align="center">
-        <meta charset="UTF-8">
-        <title>Malody Regular 0dan v3</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Malody Regular 0dan v3</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .time, .bpm {
+            cursor: pointer;
+            color: blue;
+        }
+        
+        
+        #calculator {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        #calculator input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        
+        #calculator button {
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body align="center">
-        <h1>Malody Regular 0dan v3</h1>
-	<h2>曲目:</h2>
-	
-	<h3>Amamiya Erika-Ikitoshi Ikerumono</h3>
-	<h4><img src="../re v3/0dan/Amamiya Erika - Ikitoshi ikerumono.jpg"width="491"height="277"></h4>
-	<h4>歌曲时长:1分22秒 BPM:174 物量:492 谱师:promiii <a href="https://music.163.com/dj?id=2539282545&uct2=U2FsdGVkX1+PhUYDGclaHgqPex6TVVV2Ci5v/cyXDOE=">网易云声音</a><h4>
+    <h1>Malody Regular 0dan v3</h1>
+    <h2>曲目:</h2>
+    
+    <hr/>
 
-	<h3>L-Minatsu-Rambling Pleat</h3>
-	<h4><img src="../re v3/0dan/Mizunatsu Eru - Rambling Pleat.jpg"width="491"height="277"></h4>
-	<h4>歌曲时长:1分41秒 BPM:118 物量:529 谱师:boomushroom <a href="https://music.163.com/dj?id=2539248579&uct2=U2FsdGVkX1+H7WWm9iaNfiheAEX+afmUai00nXkyRwI=">网易云声音</a></h4>
-	
-	<h3>Luo Tianyi-Yi Meng Qian Xiao</h3>
-	<h4><img src="../re v3/0dan/Luo Tianyi - Yi Meng Qian Xiao.jpg"width="491"height="277"></h4>
-	<h4>歌曲时长:1分54秒 BPM:172 物量:595 谱师:DongShaoZhou <a href="https://music.163.com/dj?id=2539301524&uct2=U2FsdGVkX19coY9VZw6PgSL9vXNGIqx61HojJQjrbYs=">网易云声音</a></h4>
+    <h3>Amamiya Erika-Ikitoshi Ikerumono</h3>
+    <h4><img src="../re v3/0dan/Amamiya Erika - Ikitoshi ikerumono.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分22秒', 'time')">1分22秒</span> BPM:<span class="bpm" onclick="showCalculator('174', 'bpm')">174</span> 物量:492 谱师:promiii <a href="https://music.163.com/dj?id=2539282545&uct2=U2FsdGVkX1+PhUYDGclaHgqPex6TVVV2Ci5v/cyXDOE=">网易云声音</a></h4>
 
-	<h3>Nitta Emi-White Eternimy</h3>
-    <h4><img src="../re v3/0dan/Nitta Emi - White Eternity.jpg"width="491"height="277"></h4>
-    <h4>歌曲时长:2分9秒 BPM:178 物量:681 谱师:tkdkendo <a href="https://music.163.com/dj?id=2539250589&uct2=U2FsdGVkX19PlEcHGPjMjCY6gkzr21saQynz90in4r8=">网易云声音</a></h4>
+    <h3>L-Minatsu-Rambling Pleat</h3>
+    <h4><img src="../re v3/0dan/Mizunatsu Eru - Rambling Pleat.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分41秒', 'time')">1分41秒</span> BPM:<span class="bpm" onclick="showCalculator('118', 'bpm')">118</span> 物量:529 谱师:boomushroom <a href="https://music.163.com/dj?id=2539248579&uct2=U2FsdGVkX1+H7WWm9iaNfiheAEX+afmUai00nXkyRwI=">网易云声音</a></h4>
+    
+    <h3>Luo Tianyi-Yi Meng Qian Xiao</h3>
+    <h4><img src="../re v3/0dan/Luo Tianyi - Yi Meng Qian Xiao.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分54秒', 'time')">1分54秒</span> BPM:<span class="bpm" onclick="showCalculator('172', 'bpm')">172</span> 物量:595 谱师:DongShaoZhou <a href="https://music.163.com/dj?id=2539301524&uct2=U2FsdGVkX19coY9VZw6PgSL9vXNGIqx61HojJQjrbYs=">网易云声音</a></h4>
 
-	<h4><img src="../re v3/0dan/0dan.jpg"width="594"height="334"></h4>	
-	<h4>段位时长:7分30秒 物量:2277 <a href="https://music.163.com/dj?id=2498400611&uct2=U2FsdGVkX1/xOAZ0hLezo7wyeSs43H7XuhLAF4hS5Bk=">网易云声音</a></h4>
-        <h5><a href="../malody regular v3.html">返回上一页</a></h5>
-	<h5><a href="../index.html">返回主页</a></h5>
-	<h5>网站制作者:团长的二营长 </h5>
+    <h3>Nitta Emi-White Eternimy</h3>
+    <h4><img src="../re v3/0dan/Nitta Emi - White Eternity.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分9秒', 'time')">2分9秒</span> BPM:<span class="bpm" onclick="showCalculator('178', 'bpm')">178</span> 物量:681 谱师:tkdkendo <a href="https://music.163.com/dj?id=2539250589&uct2=U2FsdGVkX19PlEcHGPjMjCY6gkzr21saQynz90in4r8=">网易云声音</a></h4>
+
+    <h4><img src="../re v3/0dan/0dan.jpg" width="594" height="334"></h4>    
+    <h4>段位时长:<span class="time" onclick="showCalculator('7分30秒', 'time')">7分30秒</span> 物量:2277 <a href="https://music.163.com/dj?id=2498400611&uct2=U2FsdGVkX1/xOAZ0hLezo7wyeSs43H7XuhLAF4hS5Bk=">网易云声音</a></h4>
+        
+    <hr/>
+
+    <h2><a href="../malody regular v3.html">返回上一页</a></h2>
+    <h2><a href="../index.html">返回主页</a></h2>
+    <h4>网站制作者:团长的二营长 </h4>
+
+   
+    <div id="calculator">
+        <h3 id="calcTitle">计算器</h3>
+        <p id="calcInfo"></p>
+        <input type="number" id="calcInput" placeholder="输入除数，如: 2 或 0.5" step="0.01">
+        <div>
+            <button onclick="calculate()">计算</button>
+            <button onclick="closeCalculator()">关闭</button>
+        </div>
+        <p id="calcResult"></p>
+    </div>
+
+    <script>
+        let currentValue = 0;
+        let currentType = '';
+        
+      
+        function showCalculator(value, type) {
+            currentType = type;
+            
+            if (type === 'time') {
+              
+                const match = value.match(/(\d+)分(\d+)秒/);
+                if (match) {
+                    const minutes = parseInt(match[1]);
+                    const seconds = parseInt(match[2]);
+                    currentValue = minutes * 60 + seconds;
+                    
+                    document.getElementById('calcTitle').textContent = '时长计算器(除法)';
+                    document.getElementById('calcInfo').textContent = `当前时长: ${value} (${currentValue}秒)`;
+                }
+            } else {
+                // BPM
+                currentValue = parseFloat(value);
+                document.getElementById('calcTitle').textContent = 'BPM计算器(乘法)';
+                document.getElementById('calcInfo').textContent = `当前BPM: ${currentValue}`;
+            }
+            
+      
+            document.getElementById('calcInput').value = '1';
+            document.getElementById('calcResult').textContent = '';
+            
+  
+            document.getElementById('calculator').style.display = 'block';
+            
+ 
+            const input = document.getElementById('calcInput');
+            input.focus();
+            input.select();
+        }
+        
+     
+        function calculate() {
+            const input = document.getElementById('calcInput').value;
+            
+            if (input) {
+                try {
+                 
+                    const divisor = parseFloat(input);
+                    
+                
+                    if (divisor === 0) {
+                        document.getElementById('calcResult').textContent = '错误：除数不能为零';
+                        return;
+                    }
+                    
+                    const result = currentValue / divisor;
+                    
+                   
+                    const unit = currentType === 'time' ? '秒' : 'BPM';
+                    document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(2)}${unit}`;
+                } catch (e) {
+                    document.getElementById('calcResult').textContent = '计算错误，请输入有效的数字';
+                }
+            } else {
+                document.getElementById('calcResult').textContent = '请输入数字';
+            }
+        }
+        
+
+        function closeCalculator() {
+            document.getElementById('calculator').style.display = 'none';
+        }
+        
+     
+        document.getElementById('calcInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculate();
+            }
+        });
+    </script>
 </body>
 </html>
