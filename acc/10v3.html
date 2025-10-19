@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ACC计算器</title>
+</head>
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+<body align="center">
+    <h1>Acc计算器</h1>
+    
+    <h2>单曲Acc</h2>
+    <p style="font-size: 18px;">输入四首歌的Acc，计算最终Acc</p>
+    
+    <input type="text" id="song1" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="song2" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="song3" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="song4" style="width: 200px; height: 30px; font-size: 18px;"><br>
+    
+    <br>
+    <button onclick="calculateFinalACC()" style="font-size: 18px; padding: 10px 20px;">计算最终Acc</button>
+    <br><br>
+    
+    <div id="finalResult" style="font-size: 18px;"></div>
+    
+    <hr>
+    
+    <h2>段内ACC</h2>
+    <p style="font-size: 18px;">输入每首歌结束时的Acc，计算单曲Acc</p>
+    
+    <input type="text" id="stage1" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="stage2" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="stage3" style="width: 200px; height: 30px; font-size: 18px;"><br><br>
+    
+    <input type="text" id="stage4" style="width: 200px; height: 30px; font-size: 18px;"><br>
+    
+    <br>
+    <button onclick="calculateSongACC()" style="font-size: 18px; padding: 10px 20px;">计算单曲Acc</button>
+    <br><br>
+    
+    <div id="songResult" style="font-size: 18px;"></div>
+
+    <script>
+        var songVolumes = [2034,1740,2270,2166];
+        var totalVolume =8210 ;
+        
+        function calculateFinalACC() {
+            var acc1 = parseFloat(document.getElementById('song1').value) || 0;
+            var acc2 = parseFloat(document.getElementById('song2').value) || 0;
+            var acc3 = parseFloat(document.getElementById('song3').value) || 0;
+            var acc4 = parseFloat(document.getElementById('song4').value) || 0;
+            
+            var finalACC = (acc1 * songVolumes[0] + acc2 * songVolumes[1] + 
+                             acc3 * songVolumes[2] + acc4 * songVolumes[3]) / totalVolume;
+            
+            document.getElementById('finalResult').innerHTML = "最终Acc: " + finalACC.toFixed(2)+"%";
+        }
+        
+        function calculateSongACC() {
+            var stage1 = parseFloat(document.getElementById('stage1').value);
+            var stage2 = parseFloat(document.getElementById('stage2').value);
+            var stage3 = parseFloat(document.getElementById('stage3').value);
+            var stage4 = parseFloat(document.getElementById('stage4').value);
+            
+            if (!stage1 || !stage2 || !stage3 || !stage4) {
+                document.getElementById('songResult').innerHTML = "请输入所有阶段的Acc";
+                return;
+            }
+            
+            var song1ACC = stage1;
+            
+            var song2ACC = (stage2 * (songVolumes[0] + songVolumes[1]) - song1ACC * songVolumes[0]) / songVolumes[1];
+            
+            var song3ACC = (stage3 * (songVolumes[0] + songVolumes[1] + songVolumes[2]) - 
+                             song1ACC * songVolumes[0] - song2ACC * songVolumes[1]) / songVolumes[2];
+            
+            var song4ACC = (stage4 * totalVolume - 
+                             song1ACC * songVolumes[0] - song2ACC * songVolumes[1] - song3ACC * songVolumes[2]) / songVolumes[3];
+            
+            var resultText = "各歌曲Acc: <br>" +
+                 song1ACC.toFixed(2) + "%"+"<br>" +
+                 song2ACC.toFixed(2) + "%"+"<br>" +
+                 song3ACC.toFixed(2) + "%"+"<br>" +
+                 song4ACC.toFixed(2)+"%";
+                
+            document.getElementById('songResult').innerHTML = resultText;
+        }
+    </script>
+    <hr/>
+    <h2><a href="../acccal.html">返回上一页</a></h2>
+    <h2><a href="../index.html">返回主页</a></h2>
+    <h4>网站制作者:团长的二营长 </h4>
+</body>
+</html>
