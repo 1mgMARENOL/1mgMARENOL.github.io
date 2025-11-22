@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        #searchContainer {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        #searchContainer input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        
+        #searchContainer button {
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            margin: 10px 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .results-list {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .result-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .result-title {
+            font-weight: bold;
+            color: #1a0dab;
+        }
+        
+        .result-path {
+            font-size: 12px;
+            color: #006621;
+        }
+    </style>
+</head>
+<body align="center">
+    <div id="searchContainer">
+        <h3>单曲搜索</h3>
+        <p class="info-text">输入单曲全名或别称后将跳转到对应段位内</p>
+	<p class="info-text">(有的别称可能未收录)</p>
+        
+        <input type="text" id="searchInput" placeholder="请输入 ">
+        
+        <div>
+            <button onclick="performSearch()">搜索</button>
+            <button onclick="clearSearch()">清空</button>
+        </div>
+        
+        <div class="result" id="result"></div>
+        
+        <div class="results-list" id="resultsList"></div>
+    </div>
+
+    <script>
+        const searchData = [
+            {
+                title:"Rocky Buinne",
+                url:"re v3/10dan.html",
+                path:"Regular 10dan v3 Tech",
+                keywords:["rocky buinne","岩流","石流","10dan技","10技","10dan技","10danv3技","10v3技","rockybuinne","Rocky Buinne","10段技","10段v3技"]
+            },
+            {
+                title:"Yue Ai Yue Ye",
+                url:"re v3/10an.html",
+                path:"Regular 10dan v3 Speed",
+                keywords:["yue ai yue ye", "月哀月夜", "越爱越野","Yue Ai Yue Ye","yueaiyeuye","Yue ai yue ye","Yueaiyueye","10乱","10dan乱","10danv3乱","10v3乱","10段乱","10段v3乱"]
+            },
+            {
+                title:"Spin Eternally",
+                url: "re v3/10dan.html",
+                path:"Regular 10dan v3 Stream",
+                keywords:["spin eternally", "永旋", "永恒的旋转", "spin","Sipn","Spin eternally","Spin Eternally","10切","10dan切","10danv3切","10v3切","10段切","10段v3切"]
+            },
+ 	    {
+                title:"Spin Eternally",
+                url: "re v3/10dan.html",
+                path:"Regular 10dan v3 Jack",
+                keywords:["Hiensou", "飞燕草","hiensou","10叠","10dan叠","10danv3叠","10v3叠","10段叠","10段v3叠"]
+            },
+
+        ];
+        
+        function performSearch() {
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultDiv = document.getElementById('result');
+            const resultsList = document.getElementById('resultsList');
+            
+            resultDiv.innerHTML = '';
+            resultsList.innerHTML = '';
+            
+            if (!keyword) {
+                resultDiv.innerHTML = '请输入段位名称或编号';
+                return;
+            }
+            
+            const matches = searchData.filter(item => {
+                return item.title.toLowerCase().includes(keyword) || 
+                       item.keywords.some(kw => kw.toLowerCase().includes(keyword));
+            });
+            
+            if (matches.length === 0) {
+                resultDiv.innerHTML = `未找到与"${keyword}"相关的结果`;
+            } else if (matches.length === 1) {
+
+                window.location.href = matches[0].url;
+            } else {
+
+                resultDiv.innerHTML = `找到 ${matches.length} 个匹配结果，请选择：`;
+                
+                matches.forEach(item => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.innerHTML = `
+                        <div class="result-title">${item.title}</div>
+                        <div class="result-path">${item.path}</div>
+                    `;
+                    resultItem.addEventListener('click', function() {
+                        window.location.href = item.url;
+                    });
+                    resultsList.appendChild(resultItem);
+                });
+            }
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('resultsList').innerHTML = '';
+        }
+        
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
