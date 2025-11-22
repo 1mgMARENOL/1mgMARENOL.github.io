@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Malody Regular 4dan v2</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .time, .bpm {
+            cursor: pointer;
+            color: blue;
+        }
+        
+        #calculator {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        #calculator input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        
+        #calculator button {
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+ 	h2 {
+            margin: 5px 0;}
+	h1{
+	    margin: 5px 0;}
+
+	img {
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+
+<body align="center">
+    <h1>Malody Regular 4dan v2</h1>
+    <h5 style="color:red;">点击时长和BPM即可进行计算</h5>
+    <h6>翻译均为AI直翻</h6>
+    <h2>曲目:</h2>
+    <hr/>
+
+    <h3>Cuvelia - Tenkuu no yoake</h3>
+    <h4><img src="../re v2/4dan/r4444.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分48秒', 'time')">1分48秒</span> BPM:<span class="bpm" onclick="showCalculator('150', 'bpm')">150</span> 物量:1400 谱师:ZZHBOY <a href="https://music.163.com/dj?id=2494971560&uct2=U2FsdGVkX18w6yt2A/KrJ9/SLpCA883/TJQAG5BrKjc=">网易云声音</a></h4>
+    <h5>翻译:天空的黎明</h5>
+    <br/>
+
+    <h3>sakuzyo - VALLISTA</h3>
+    <h4><img src="../re v2/4dan/sakuzyo - VALLISTA.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分58秒', 'time')">1分58秒</span> BPM:<span class="bpm" onclick="showCalculator('180', 'bpm')">180</span> 物量:1402 谱师:liaoxingyao <a href="https://music.163.com/dj?id=2494971561&uct2=U2FsdGVkX190x9pl0c124o+ymFBb5Onn4HJdJEJSUhI=">网易云声音</a></h4>
+    <h5>翻译无</h5>
+    <br/>
+    
+    <h3>wa.remixed celas - Crystalworld~Fracture~</h3>
+    <h4><img src="../re v2/4dan/Various Artists - Malody 4K  Dan v2 (Regular)-Tech Regular-4 Crystal World ~Fracture~.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('1分48秒', 'time')">1分48秒</span> BPM:<span class="bpm" onclick="showCalculator('180', 'bpm')">180</span> 物量:1685 谱师:ExNeko <a href="https://music.163.com/dj?id=2494971562&uct2=U2FsdGVkX18WSvCSx8jvkKTss6RXlsGOz6xz/YJxnGU=">网易云声音</a></h4>
+    <h5>翻译:水晶世界~断裂~ 别称:水煎世界</h5>
+    <br/>
+
+    <h3>void - ZENITHALIZE</h3>
+    <h4><img src="../re v2/4dan/Personative  void [Nene Anegasaki] - Zenithalize.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分34秒', 'time')">2分34秒</span> BPM:<span class="bpm" onclick="showCalculator('150', 'bpm')">150</span> 物量:1599 谱师:Alwaysover <a href="https://music.163.com/dj?id=2494971563&uct2=U2FsdGVkX19T6TiW991TxH5SOnWLGlAb1pwx1Koagec=">网易云声音</a></h4>
+    <h5>翻译:巅峰化 别称:溺水者</h5>
+    <br/>
+
+    <h4><img src="../re v2/4dan/4dan.jpg" width="594" height="334"></h4>    
+    <h4>段位时长:<span class="time" onclick="showCalculator('8分48秒', 'time')">8分48秒</span> 物量:6086 <a href="https://music.163.com/dj?id=2494627945&uct2=U2FsdGVkX1+6ZtC+N2Es4BiWMGbnn8Qyoq385ipAq5g=">网易云声音</a></h4>
+        
+    <hr/>
+
+    <h2><a href="../re v2/3dan.html">查询上一段位</a></h2>    
+    <h2><a href="../re v2/5dan.html">查询下一段位</a></h2>
+    <br/>
+    <h1><a href="../malody regular v2.html">返回段位界面</a></h1>
+    <h1><a href="../index.html">返回主页</a></h1>
+    <h4>网站制作者:团长的二营长 </h4>
+
+    <div id="calculator">
+        <h3 id="calcTitle">计算器</h3>
+        <p id="calcInfo"></p>
+        <input type="number" id="calcInput" placeholder="输入数字" step="0.01">
+        <div>
+            <button onclick="calculate()">计算</button>
+            <button onclick="closeCalculator()">关闭</button>
+        </div>
+        <p id="calcResult"></p>
+    </div>
+
+    <script>
+        let currentValue = 0;
+        let currentType = '';
+        
+        function showCalculator(value, type) {
+            currentType = type;
+            
+            if (type === 'time') {
+                const match = value.match(/(\d+)分(\d+)秒/);
+                if (match) {
+                    const minutes = parseInt(match[1]);
+                    const seconds = parseInt(match[2]);
+                    currentValue = minutes * 60 + seconds;
+                    
+                    document.getElementById('calcTitle').textContent = '时长计算器(除法)';
+                    document.getElementById('calcInfo').textContent = `当前时长: ${value} (${currentValue}秒)`;
+                    document.getElementById('calcInput').placeholder = "输入除数，如: 2 或 0.5";
+                }
+            } else {
+                currentValue = parseFloat(value);
+                document.getElementById('calcTitle').textContent = 'BPM计算器(乘法)';
+                document.getElementById('calcInfo').textContent = `当前BPM: ${currentValue}`;
+                document.getElementById('calcInput').placeholder = "输入乘数，如: 2 或 0.5";
+            }
+            
+            document.getElementById('calcInput').value = '1';
+            document.getElementById('calcResult').textContent = '';
+            
+            document.getElementById('calculator').style.display = 'block';
+            
+            const input = document.getElementById('calcInput');
+            input.focus();
+            input.select();
+        }
+        
+        function calculate() {
+            const input = document.getElementById('calcInput').value;
+            
+            if (input) {
+                try {
+                    const num = parseFloat(input);
+                    let result;
+                    
+                    if (currentType === 'time') {
+                        if (num === 0) {
+                            document.getElementById('calcResult').textContent = '错误：除数不能为零';
+                            return;
+                        }
+                        result = currentValue / num;
+                    } else {
+                        result = currentValue * num;
+                    }
+                    
+                    const unit = currentType === 'time' ? '秒' : 'BPM';
+                    document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(4)}${unit}`;
+                } catch (e) {
+                    document.getElementById('calcResult').textContent = '计算错误，请输入有效的数字';
+                }
+            } else {
+                document.getElementById('calcResult').textContent = '请输入数字';
+            }
+        }
+        
+        function closeCalculator() {
+            document.getElementById('calculator').style.display = 'none';
+        }
+        
+        document.getElementById('calcInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculate();
+            }
+        });
+    </script>
+</body>
+</html>
