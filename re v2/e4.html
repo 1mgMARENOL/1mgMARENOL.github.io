@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Malody Extra 4dan v2</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        .time, .bpm {
+            cursor: pointer;
+            color: blue;
+        }
+        
+        #calculator {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        #calculator input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        
+        #calculator button {
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+ 	h2 {
+            margin: 5px 0;}
+	h1{
+	    margin: 5px 0;}
+
+	img {
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+
+<body align="center">
+    <h1>Malody Extra 4dan v2</h1>
+    <h5 style="color:red;">点击时长和BPM即可进行计算</h5>
+    <h6>翻译均为AI直翻</h6>
+    <h2>曲目:</h2>
+    <hr/>
+
+    <h3>Camellia feat. Nanahira - EDM Jumpers</h3>
+    <h4><img src="../ex v2/e4.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分20秒', 'time')">2分20秒</span> BPM:<span class="bpm" onclick="showCalculator('145', 'bpm')">145</span> 物量:2731 谱师:Rachel <a href="https://music.163.com/dj?id=2509602044&uct2=U2FsdGVkX18UonuMs7GCRAzNL39Wve7lExM3YJefaKs=">网易云声音</a></h4>
+    <h5>翻译:电子舞曲跳跃者</h5>
+    <br/>
+
+    <h3>nitro - [line:ε]</h3>
+    <h4><img src="../ex v2/e4/nitro - line-epsilon.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分30秒', 'time')">2分30秒</span> BPM:<span class="bpm" onclick="showCalculator('160', 'bpm')">160</span> 物量:2653 谱师:XingRen <a href="网易云声音链接">网易云声音</a></h4>
+    <h5>翻译:线:epsilon</h5>
+    <br/>
+    
+    <h3>t+pazolite - Contrapasso -paradiso-</h3>
+    <h4><img src="../ex v2/e4/t+pazolite - Contrapasso -paradiso-.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分3秒', 'time')">2分3秒</span> BPM:<span class="bpm" onclick="showCalculator('243', 'bpm')">243</span> 物量:2033 谱师:Peachhhh <a href="https://music.163.com/dj?id=2511076512&uct2=U2FsdGVkX1+s3kcc2fgCkPQ2/cSgzjklvtUtztrfITo=">网易云声音</a></h4>
+    <h5>翻译:齿轮天堂 别称:火柴人</h5>
+    <br/>
+
+    <h3>DJ Genki vs. Camellia feat.moimoi - YELL!</h3>
+    <h4><img src="../ex v2/e4/DJ Genki vs. Camellia feat.moimoi - YELL!.jpg" width="491" height="277"></h4>
+    <h4>歌曲时长:<span class="time" onclick="showCalculator('2分16秒', 'time')">2分16秒</span> BPM:<span class="bpm" onclick="showCalculator('170', 'bpm')">170</span> 物量:2796 谱师:Rachel <a href="https://music.163.com/dj?id=2510809640&uct2=U2FsdGVkX1/X5xZCYIQctT37dTIB3iP1MMm/ZH2Iyco=">网易云声音</a></h4>
+    <h5>翻译:呐喊</h5>
+    <br/>
+
+    <h4><img src="../ex v2/e4/e4.jpg" width="594" height="334"></h4>    
+    <h4>段位时长:<span class="time" onclick="showCalculator('9分42秒', 'time')">9分42秒</span> 物量:10213 <a href="网易云声音链接">网易云声音</a></h4>
+        
+    <hr/>
+
+    <h2><a href="../ex v2/e3.html">查询上一段位</a></h2>    
+    <h2><a href="../ex v2/e5.html">查询下一段位</a></h2>
+    <br/>
+    <h1><a href="../malody extra v2.html">返回段位界面</a></h1>
+    <h1><a href="../index.html">返回主页</a></h1>
+    <h4>网站制作者:团长的二营长 </h4>
+
+    <div id="calculator">
+        <h3 id="calcTitle">计算器</h3>
+        <p id="calcInfo"></p>
+        <input type="number" id="calcInput" placeholder="输入数字" step="0.01">
+        <div>
+            <button onclick="calculate()">计算</button>
+            <button onclick="closeCalculator()">关闭</button>
+        </div>
+        <p id="calcResult"></p>
+    </div>
+
+    <script>
+        let currentValue = 0;
+        let currentType = '';
+        
+        function showCalculator(value, type) {
+            currentType = type;
+            
+            if (type === 'time') {
+                const match = value.match(/(\d+)分(\d+)秒/);
+                if (match) {
+                    const minutes = parseInt(match[1]);
+                    const seconds = parseInt(match[2]);
+                    currentValue = minutes * 60 + seconds;
+                    
+                    document.getElementById('calcTitle').textContent = '时长计算器(除法)';
+                    document.getElementById('calcInfo').textContent = `当前时长: ${value} (${currentValue}秒)`;
+                    document.getElementById('calcInput').placeholder = "输入除数，如: 2 或 0.5";
+                }
+            } else {
+                currentValue = parseFloat(value);
+                document.getElementById('calcTitle').textContent = 'BPM计算器(乘法)';
+                document.getElementById('calcInfo').textContent = `当前BPM: ${currentValue}`;
+                document.getElementById('calcInput').placeholder = "输入乘数，如: 2 或 0.5";
+            }
+            
+            document.getElementById('calcInput').value = '1';
+            document.getElementById('calcResult').textContent = '';
+            
+            document.getElementById('calculator').style.display = 'block';
+            
+            const input = document.getElementById('calcInput');
+            input.focus();
+            input.select();
+        }
+        
+        function calculate() {
+            const input = document.getElementById('calcInput').value;
+            
+            if (input) {
+                try {
+                    const num = parseFloat(input);
+                    let result;
+                    
+                    if (currentType === 'time') {
+                        if (num === 0) {
+                            document.getElementById('calcResult').textContent = '错误：除数不能为零';
+                            return;
+                        }
+                        result = currentValue / num;
+                    } else {
+                        result = currentValue * num;
+                    }
+                    
+                    const unit = currentType === 'time' ? '秒' : 'BPM';
+                    document.getElementById('calcResult').textContent = `计算结果: ${result.toFixed(4)}${unit}`;
+                } catch (e) {
+                    document.getElementById('calcResult').textContent = '计算错误，请输入有效的数字';
+                }
+            } else {
+                document.getElementById('calcResult').textContent = '请输入数字';
+            }
+        }
+        
+        function closeCalculator() {
+            document.getElementById('calculator').style.display = 'none';
+        }
+        
+        document.getElementById('calcInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculate();
+            }
+        });
+    </script>
+</body>
+</html>
